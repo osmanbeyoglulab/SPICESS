@@ -1,0 +1,71 @@
+method: random
+program: train.py
+parameters:
+  epochs:
+    values:
+      - 100
+      - 200
+      - 300
+      - 500
+      - 850
+      - 1000
+      - 2000
+      - 3000
+  latent_dim:
+    values:
+      - 8
+      - 16
+      - 32
+      - 64
+      - 128
+      - 256
+      - 512
+      - 1024
+  lr:
+    distribution: log_uniform_values
+    max: 1e-2
+    min: 1e-6
+  wd:
+    distribution: log_uniform_values
+    max: 1e-1
+    min: 1e-10
+  kl_gex:
+    distribution: log_uniform_values
+    max: 1e-1
+    min: 1e-25
+  kl_pex:
+    distribution: log_uniform_values
+    max: 1e-1
+    min: 1e-25
+  recons_gex:
+    distribution: log_uniform_values
+    max: 1e-1
+    min: 1e-6
+  recons_pex:
+    distribution: log_uniform_values
+    max: 1e-1
+    min: 1e-6
+  cosine_gex:
+    distribution: log_uniform_values
+    max: 1e-1
+    min: 1e-6
+  cosine_pex:
+    distribution: log_uniform_values
+    max: 1e-1
+    min: 1e-6
+  adj:
+    distribution: log_uniform_values
+    max: 1e-1
+    min: 1e-10
+  spatial:
+    distribution: log_uniform_values
+    max: 1e-1
+    min: 1e-10
+  mutual_gex:
+    distribution: log_uniform_values
+    max: 1e-1
+    min: 1e-10
+  mutual_pex:
+    distribution: log_uniform_values
+    max: 1e-1
+    min: 1e-10

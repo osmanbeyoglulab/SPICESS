@@ -1,0 +1,32 @@
+name,secondary_name,cell_type,annot
+CD163,CD163,Macrophage marker,Macrophage marker
+CR2,CD21,Dendritic and B cells,Dendritic and B cells
+PCNA,PCNA,Cell proliferation marker,Cell proliferation marker
+KRT5,PanCK,Structural marker,Structural marker
+CD68,CD68,Macrophages,Macrophages
+CEACAM8,CD66b,Neutrophils,Neutrophils
+PTPRC_1,CD45RA,Functional T cells,Functional T cells-RA
+HLA-DRA,HLA-DR,Myeloid cells,Myeloid cells
+PAX5,PAX5,B cells,PAX5 B cells
+SDC1,CD138,Plasma cells,Plasma cells
+PTPRC_2,CD45RO,Functional T cells,Functional T cells-RO
+CD8A,CD8A,T cells,CD8A T cells
+BCL2,BCL2,Apoptotic marker,Apoptotic marker
+CD19,CD19,B cells,CD19 B cells
+PDCD1,PD1,Checkpoint marker,Checkpoint marker
+ACTA2,alphaSMA,Structural marker,Structural marker
+FCGR3A,CD16,Granulocytes/NK cells,Granulocytes/NK cells
+ITGAX,CD11c,Dendritic cells,Dendritic cells
+CXCR5,CXCR5,T cells,T cells
+EPCAM,EPCAM,Epithelial cells,Epithelial cells
+MS4A1,CD20,B cells,CD20 B cells
+CD3E,CD3E,T cells,CD3E T cells
+CD14,CD14,Myeloid cells,Myeloid cells
+CD40,CD40,T and B lymphocytes,T and B lymphocytes
+PECAM1,CD31,Endothelial cells,Endothelial cells
+CD4,CD4,T cells,CD4 T cells
+ITGAM,CD11b,Myeloid cells,Myeloid cells
+CD27,CD27,Functional B cells,CD27 Functional B cells
+CD274,PDL1,Checkpoint marker,Checkpoint marker
+VIM,Vimentin,Mesenchymal cells,Mesenchymal cells
+CCR7,CD197,Functional B cells,Functional B cells

@@ -1,3 +1,4 @@
+```{python}
 trainer = TrainModelPipeline(
     tissue = 'Tonsil',
     adatas = [adata, adata_eval],
@@ -21,3 +22,5 @@ trainer = TrainModelPipeline(
 )
 
 spicess = trainer.run()
+
+```

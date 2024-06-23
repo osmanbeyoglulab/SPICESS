@@ -173,7 +173,6 @@ class LoadH5ADPipeline(Pipeline):
         adata3.obs['domain_id'] = 100+int(ix)
         adata3.obs['source'] = adata3.obs['source'].astype('category')
         adata3.obs['domain_id'] = adata3.obs['domain_id'].astype('category')
-        
         return adata3
         
     
@@ -274,8 +273,8 @@ class LoadCytAssistPipeline(Pipeline):
         
         pdata = pdata[:, pdata.var_names.isin(UNIQUE_VAR_NAMES)]
         
-        clean_adata(adata)
-        clean_adata(pdata)
+        clean_adata(adata) #clean data
+        clean_adata(pdata) #clean data
         
         return adata, pdata
         
@@ -304,7 +303,7 @@ class BulkCytAssistLoaderPipeline(Pipeline):
                 )   
             )
             
-        print(f'Created Bulk CytAssist data loader pipeline with {len(self.fnames)} samples.')
+        print(f'Created new Bulk CytAssist data loader pipeline with {len(self.fnames)} samples.')
     
     def run(self, i):
         return self.loaders[i].run()
@@ -313,6 +312,3 @@ class BulkCytAssistLoaderPipeline(Pipeline):
         for i in range(len(self.fnames)):
             adata, pdata = self.run(i)
             sc.pl.spatial(adata, title=f'{self.tissue} Sample {i}')
-
-
-    

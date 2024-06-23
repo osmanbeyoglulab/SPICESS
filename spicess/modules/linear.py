@@ -18,9 +18,6 @@ class LinearBlock(nn.Module):
                 nn.Dropout(dropout),
                 nn.Linear(2*output_dim, output_dim),
             )
-        
-        # for m in self.block:
-        #     self.weights_init(m)
     
     def forward(self, x, A=None):
         x = F.dropout(x, self.input_dropout, self.training)
@@ -34,8 +31,3 @@ class LinearBlock(nn.Module):
                 
     def __repr__(self) -> str:
         return self.__class__.__name__ + ' (' + str(self.input_dim) + ' -> ' + str(self.output_dim) + ')'
-        
-    
-
-
-

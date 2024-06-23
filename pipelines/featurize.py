@@ -60,19 +60,6 @@ class FeaturizePipeline(Pipeline):
         
         return adj_label, adj_norm, pos_weight, norm, sp_dists
     
-    # def make_graph_non_spatial(self, size):
-    #     adj = torch.zeros(size, size).numpy() + 0.5
-    #     adj_label = adj + sp.eye(adj.shape[0])
-    #     adj_label = np.array(adj_label)
-        
-    #     pos_weight = float(adj.shape[0] * adj.shape[0] - adj.sum()) / adj.sum()
-    #     norm = adj.shape[0] * adj.shape[0] / float((adj.shape[0] * adj.shape[0] - adj.sum()) * 2)
-    #     adj_norm = preprocess_graph(adj).to_dense().numpy()
-    #     sp_dists = (torch.randn(size, size) * 100).int().float()
-        
-    #     norm = 1.0
-        
-    #     return adj_label, adj_norm, pos_weight, norm, sp_dists
     
     def clr_normalize(self, X):
         """Take the logarithm of the surface protein count for each cell, 

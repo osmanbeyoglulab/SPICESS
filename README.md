@@ -1,4 +1,27 @@
 ```{python}
+from pipelines.load import LoadCytAssistPipeline
+from pipelines.train import TrainModelPipeline
+```
+
+
+```{python}
+train_loader = LoadCytAssistPipeline(
+    tissue='Tonsil', 
+    h5_file=data_path+'/GEX_PEX/filtered_feature_bc_matrix.h5',
+    sample_id = 0,
+    name = 'Tonsil 1',
+)
+
+eval_loader = LoadCytAssistPipeline(
+    tissue='Tonsil', 
+    h5_file=data_path+'/GEX_PEX_2/filtered_feature_bc_matrix.h5',
+    sample_id = 1,
+    name = 'Tonsil 2',
+)
+```
+
+
+```{python}
 trainer = TrainModelPipeline(
     tissue = 'Tonsil',
     adatas = [adata, adata_eval],

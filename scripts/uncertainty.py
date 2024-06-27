@@ -1,7 +1,23 @@
+import torch.nn as nn
+import pandas as pd
+import numpy as np
+import scanpy as sc
+import sys
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 from captum.attr import IntegratedGradients
 from captum.attr import DeepLift
 from captum.attr import KernelShap, GradientShap
 
+from pipelines.load import LoadCytAssistPipeline, LoadVisiumPipeline, LoadSeuratTonsilsPipeline
+from pipelines.featurize import FeaturizePipeline
+from pipelines.train import TrainModelPipeline
+from pipelines.infer import InferencePipeline
+
+from utils import cluster, align_adata, column_corr, floatify, tocpu, alpha_shape
+from utils import alpha_shape
 
 class ProteinImputer(nn.Module):
     def __init__(self, model, adj, indices):
@@ -21,6 +37,23 @@ class ProteinImputer(nn.Module):
         # return decoded.mean(0)
         return decoded
     
+tissue = 'Tonsil'
+antibody_panel = pd.read_csv('./antibody_panel.csv')
+data_path = '/ix/hosmanbeyoglu/spicess_datasets/TonsilTissue'
+
+train_loader = LoadCytAssistPipeline(
+    tissue=tissue, 
+    h5_file=data_path+'/GEX_PEX/filtered_feature_bc_matrix.h5',
+    sample_id = 0,
+    name = 'Tonsil 1',
+)
+
+eval_loader = LoadCytAssistPipeline(
+    tissue=tissue, 
+    h5_file=data_path+'/GEX_PEX_2/filtered_feature_bc_matrix.h5',
+    sample_id = 1,
+    name = 'Tonsil 2',
+)
     
 adata, pdata = train_loader.run() 
 adata_eval, pdata_eval = eval_loader.run()
@@ -33,20 +66,42 @@ adata.X = adata.layers['counts']
 
 adata_eval = align_adata(adata_eval, adata)
 
+trainer = TrainModelPipeline(
+    tissue = 'Tonsil',
+    adatas = [adata, adata_eval],
+    pdatas = [pdata, pdata_eval],
+    repeats = 1,
+    latent_dim = 512,
+    save = False,
+    lr = 2e-5,
+    dropout=0.1,
+    use_histology=False,
+    patience = 100,
+    epochs = 9000,
+    recons_gex = 1e-4, 
+    recons_pex = 1e-4, 
+    adj = 1e-3,
+    align = 1e-4,
+    minmax_vertical = True,
+    min_max = True,
+    gene_log = True,
+    protein_log = False
+)
 
-dropout_predictions = np.array([sp.model.impute(
-    X=spicess_2.iter_0.d13.cuda(), 
-    adj=sp.A.cuda(), 
-    indices=spicess_2.iter_0.model.train_idx,
+spicess = trainer.run()
+
+
+
+dropout_predictions = np.array([spicess.iter_0.model.impute(
+    X=spicess.iter_0.d13.cuda(), 
+    adj=spicess.A.cuda(), 
     enable_dropout=True
 ).T for _ in range(10)])
 
 # Calculating mean across multiple MCD forward passes 
 mean = np.mean(dropout_predictions, axis=0)  # shape (n_samples, n_classes)
-
 # Calculating variance across multiple MCD forward passes 
 variance = np.var(dropout_predictions, axis=0)  # shape (n_samples, n_classes)
-
 epsilon = sys.float_info.min
 # Calculating entropy across multiple MCD forward passes 
 entropy = -np.sum(mean * np.log(mean + epsilon), axis=-1)  # shape (n_samples,)

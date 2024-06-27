@@ -1,7 +1,7 @@
 import scipy.sparse as sp
 import torch
 import yaml
-from pipeline import Pipeline
+from pipelines.pipeline import Pipeline
 from spicess.vae_infomax import InfoMaxVAE
 from utils import graph_alpha, preprocess_graph, floatify
 from anndata import AnnData

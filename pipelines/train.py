@@ -5,7 +5,7 @@ from sklearn.cluster import KMeans
 import torch
 import yaml
 from early_stopping import EarlyStopping
-from pipeline import Pipeline
+from pipelines.pipeline import Pipeline
 from spicess.modules.losses import Loss, Metrics
 from spicess.vae_infomax import InfoMaxVAE
 from utils import ImageSlicer, column_corr, column_corr_p, floatify, tocpu

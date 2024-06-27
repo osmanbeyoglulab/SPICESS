@@ -5,7 +5,7 @@ import squidpy as sq
 import torch
 from anndata import AnnData
 from muon import prot as pt
-from pipeline import Pipeline
+from pipelines.pipeline import Pipeline
 from scipy.sparse import csr_matrix
 from sklearn.preprocessing import MinMaxScaler
 from utils import graph_alpha, preprocess_graph

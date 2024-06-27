@@ -1,9 +1,9 @@
 from collections import OrderedDict
 import numpy as np
 import pandas as pd
-from pipeline import Pipeline
 from anndata import AnnData
 import glob
+from pipelines.pipeline import Pipeline
 from utils import clean_adata
 import scanpy as sc
 import os

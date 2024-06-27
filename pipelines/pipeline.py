@@ -10,7 +10,7 @@ import torch
 from torch import optim
 from anndata import AnnData
 from tqdm import tqdm
-from utils import ImageSlicer, clean_adata, graph_alpha, preprocess_graph, train_test_split
+from utils import ImageSlicer, clean_adata, graph_alpha, preprocess_graph
 from spicess.modules.losses import Metrics, Loss
 from early_stopping import EarlyStopping
 from spicess.vae_infomax import InfoMaxVAE
@@ -22,9 +22,7 @@ import scipy.sparse as sp
 from scipy.sparse import csr_matrix
 from muon import prot as pt
 import glob
-from sklearn.decomposition import PCA
 from PIL import Image
-import uniport as up
 from sklearn.cluster import KMeans
 import squidpy as sq
 
@@ -868,7 +866,7 @@ class TrainModelPipeline(Pipeline):
         test_protein = tocpu(d14)
                 
         with tqdm(total=self.epochs, disable=False) as pbar:
-            pbar.set_postfix_str(f'{d11.shape[1]}d -> {self.latent_dim}d')
+            # pbar.set_postfix_str(f'{d11.shape[1]}d -> {self.latent_dim}d')
             for e in range(self.epochs):
                 
                 model.train()
